@@ -1,4 +1,4 @@
-# query-filters
+# Query Filters
 
 [![Author][ico-author]][link-author]
 [![Latest Version on Packagist][ico-version]][link-packagist]
@@ -12,34 +12,12 @@
 
 [![SensioLabsInsight][ico-sensiolabs]][link-sensiolabs]
 
-**Note:** Replace the following placeholders with their actual values in all concerned files:
-
-- ```query-filters```
-- ```query-filters```
-- ```QueryFilters```
-- ```Laravel package to filter data based on the query string.```
-
-**Note:** Enable the following services for the current package:
-
-- [Packagist](https://packagist.org/packages/submit)
-- [TravisCI](https://travis-ci.org/profile/cerbero90)
-- [ScrutinizerCI](https://scrutinizer-ci.com/g/new)
-- [StyleCI](https://styleci.io/account)
-- [SensioLabs Insight](https://insight.sensiolabs.com/projects/new)
-
-**Note:** Now that StyleCI and SensioLabs are enabled, replace their placeholders with the actual values in this file:
-
-- ```:styleci_repo```
-- ```:sensiolabs_project```
-
-**Note:** Delete all the above notes, including this one.
-
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what
-PSRs you support to avoid any confusion with users and contributors.
+Query Filters has been fully inspired by this [lesson on Laracasts](https://laracasts.com/series/eloquent-techniques/episodes/4).
+This package provides an elegant and dynamic way to filter database records based on the request query string.
 
 ## Install
 
-Via Composer
+From the root of your project run the following command in the terminal:
 
 ``` bash
 composer require cerbero/query-filters
@@ -47,9 +25,69 @@ composer require cerbero/query-filters
 
 ## Usage
 
+Imagine having a route to index all the actors stored in our database.
+This route accepts a query string to filter the data to display. For instance:
+
+```
+/actors?won_oscar&acting=0&acted-in=2000
+```
+
+will display only actors who won at least one Oscar, are no longer acting but acted in 2000.
+
+By using this package you can easily create filters based on the requested query string by just extending the `QueryFilters` class:
+
 ``` php
-$skeleton = new League\Skeleton();
-echo $skeleton->echoPhrase('Hello, League!');
+use Cerbero\QueryFilters\QueryFilters;
+
+class ActorFilters extends QueryFilters
+{
+    public function wonOscar()
+    {
+        $this->query->where('oscars', '>', 0);
+    }
+
+    public function acting($boolean)
+    {
+        $this->query->whereActing($boolean);
+    }
+
+    public function actedIn($year)
+    {
+        $this->query->whereHas('movies', function ($movies) use ($year) {
+            $movies->whereYear('release_date', '=', $year);
+        });
+    }
+}
+```
+
+All parameters in the query string have the related method in the newly created class.
+Please note that parameters having dashes or underscores are converted into their respective camel case form.
+
+You can use the property `$query` to interact with the Laravel Query Builder and determine how filters work.
+Thereafter let your Eloquent model (e.g. Actor) use the `FiltersRecords` trait:
+
+``` php
+use Cerbero\QueryFilters\FiltersRecords;
+use Illuminate\Database\Eloquent\Model;
+
+class Actor extends Model
+{
+    use FiltersRecords;
+}
+```
+
+Now you can filter your actors by calling the method `filterBy()` and passing an instance of `ActorFilters`.
+For example, in your controller:
+
+``` php
+use App\Actor;
+
+...
+
+public function index(ActorFilters $filters)
+{
+    return Actor::filterBy($filters)->get();
+}
 ```
 
 ## Change log
@@ -72,6 +110,8 @@ If you discover any security related issues, please email andrea.marco.sartori@g
 
 ## Credits
 
+- [Jeffrey Way](https://github.com/JeffreyWay)
+- [Laracasts](https://laracasts.com)
 - [Andrea Marco Sartori][link-author]
 - [All Contributors][link-contributors]
 
@@ -85,18 +125,18 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-travis]: https://img.shields.io/travis/cerbero90/query-filters/master.svg?style=flat-square
 [ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/cerbero90/query-filters.svg?style=flat-square
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/cerbero90/query-filters.svg?style=flat-square
-[ico-styleci]: https://styleci.io/repos/:styleci_repo/shield
+[ico-styleci]: https://styleci.io/repos/57024205/shield
 [ico-downloads]: https://img.shields.io/packagist/dt/cerbero/query-filters.svg?style=flat-square
 [ico-gratipay]: https://img.shields.io/gratipay/cerbero.svg?style=flat-square
-[ico-sensiolabs]: https://insight.sensiolabs.com/projects/:sensiolabs_project/big.png
+[ico-sensiolabs]: https://insight.sensiolabs.com/projects/fe5cb80b-d49f-46e6-b94b-79c6087b5c13/big.png
 
 [link-author]: https://twitter.com/cerbero90
 [link-packagist]: https://packagist.org/packages/cerbero/query-filters
 [link-travis]: https://travis-ci.org/cerbero90/query-filters
 [link-scrutinizer]: https://scrutinizer-ci.com/g/cerbero90/query-filters/code-structure
 [link-code-quality]: https://scrutinizer-ci.com/g/cerbero90/query-filters
-[link-styleci]: https://styleci.io/repos/:styleci_repo
+[link-styleci]: https://styleci.io/repos/57024205
 [link-downloads]: https://packagist.org/packages/cerbero/query-filters
 [link-gratipay]: https://gratipay.com/cerbero
-[link-sensiolabs]: https://insight.sensiolabs.com/projects/:sensiolabs_project
+[link-sensiolabs]: https://insight.sensiolabs.com/projects/fe5cb80b-d49f-46e6-b94b-79c6087b5c13
 [link-contributors]: ../../contributors
