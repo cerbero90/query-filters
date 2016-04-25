@@ -1,0 +1,46 @@
+{
+    "name": "cerbero/query-filters",
+    "type": "library",
+    "description": "Laravel package to filter data based on the query string.",
+    "keywords": [
+        "cerbero",
+        "query-filters"
+    ],
+    "homepage": "https://github.com/cerbero90/query-filters",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Andrea Marco Sartori",
+            "email": "andrea.marco.sartori@gmail.com",
+            "homepage": "https://github.com/cerbero90",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php" : "~5.5|~7.0"
+    },
+    "require-dev": {
+        "phpspec/phpspec" : "^2.5",
+        "henrikbjorn/phpspec-code-coverage" : "^2.0",
+        "scrutinizer/ocular": "^1.1",
+        "squizlabs/php_codesniffer": "^2.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Cerbero\\QueryFilters\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Cerbero\\QueryFilters\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "phpspec run -vvv"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}
