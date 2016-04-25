@@ -4,7 +4,11 @@
     "description": "Laravel package to filter data based on the query string.",
     "keywords": [
         "cerbero",
-        "query-filters"
+        "query-filters",
+        "laravel",
+        "query",
+        "filters",
+        "query string"
     ],
     "homepage": "https://github.com/cerbero90/query-filters",
     "license": "MIT",
