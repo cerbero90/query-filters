@@ -38,6 +38,19 @@ abstract class QueryFilters
     }
 
     /**
+     * Hydrate the filters from plain array.
+     *
+     * @param    array    $queries
+     * @return    static
+     */
+    public static function hydrate(array $queries)
+    {
+        $request = new Request($queries);
+
+        return new static($request);
+    }
+
+    /**
      * Apply all the filters to the given query.
      *
      * @param    Illuminate\Database\Eloquent\Builder    $query
