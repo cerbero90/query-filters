@@ -8,10 +8,17 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ### Added
 - Abstract class to extend for implementing query filters.
-- Trait to let Eloquent models use in order to filter their records
+- Trait to let Eloquent models use in order to filter their records.
 
 
 ## 1.1.0 - 2016-07-25
 
 ### Added
-- Static method to hydrate the filters from plain array
+- Static method to hydrate the filters from plain array.
+
+
+## 1.2.0 - 2016-11-19
+
+### Added
+- Artisan command to generate query filters.
+- Configuration file to set the path of generated query filters.
