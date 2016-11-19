@@ -12,7 +12,8 @@
 
 [![SensioLabsInsight][ico-sensiolabs]][link-sensiolabs]
 
-Query Filters has been fully inspired by this [lesson on Laracasts](https://laracasts.com/series/eloquent-techniques/episodes/4).
+Query Filters has been fully inspired by this
+[lesson on Laracasts](https://laracasts.com/series/eloquent-techniques/episodes/4).
 This package provides an elegant and dynamic way to filter database records based on the request query string.
 
 ## Install
@@ -21,6 +22,25 @@ From the root of your project run the following command in the terminal:
 
 ``` bash
 composer require cerbero/query-filters
+```
+
+Optionally you can register the service provider included in the package to create query filters via the
+Artisan command `make:query-filters FiltersName`. In order to do that, add the following line to the list
+of your providers in `config/app.php`:
+
+``` php
+'providers' => [
+    ...
+    Cerbero\QueryFilters\QueryFiltersServiceProvider::class,
+    ...
+]
+```
+
+By default the newly created query filters are placed in `app/QueryFilters`, if you prefer a different
+path you can set it in the `config/query_filters.php` file that you can create by running:
+
+``` bash
+php artisan vendor:publish --tag=query_filters_config
 ```
 
 ## Usage
@@ -34,7 +54,8 @@ This route accepts a query string to filter the data to display. For instance:
 
 will display only actors who won at least one Oscar, are no longer acting but acted in 2000.
 
-By using this package you can easily create filters based on the requested query string by just extending the `QueryFilters` class:
+By using this package you can easily create filters based on the requested query string by just extending
+the `QueryFilters` class:
 
 ``` php
 use Cerbero\QueryFilters\QueryFilters;
@@ -90,6 +111,22 @@ public function index(ActorFilters $filters)
 }
 ```
 
+Alternatively you can hydrate an instance of `QueryFilters` from an array of query parameters, like:
+
+``` php
+use App\Actor;
+use Illuminate\Http\Request;
+
+...
+
+public function index(Request $request)
+{
+    $filters = ActorFilters::hydrate($request->query());
+
+    return Actor::filterBy($filters)->get();
+}
+```
+
 ## Change log
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
@@ -106,7 +143,8 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) and [CONDUCT](CONDUCT.md) for details
 
 ## Security
 
-If you discover any security related issues, please email andrea.marco.sartori@gmail.com instead of using the issue tracker.
+If you discover any security related issues, please email andrea.marco.sartori@gmail.com instead of
+using the issue tracker.
 
 ## Credits
 
