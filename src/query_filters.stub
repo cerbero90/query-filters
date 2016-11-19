@@ -1,0 +1,10 @@
+<?php
+
+namespace DummyNamespace;
+
+use Cerbero\QueryFilters\QueryFilters;
+
+class DummyClass extends QueryFilters
+{
+    //
+}
