@@ -22,3 +22,9 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ### Added
 - Artisan command to generate query filters.
 - Configuration file to set the path of generated query filters.
+
+
+## 1.2.1 - 2016-11-19
+
+### Removed
+- Support for PHP 5.5.

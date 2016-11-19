@@ -23,9 +23,7 @@ class QueryFiltersServiceProvider extends ServiceProvider
             __DIR__.'/query_filters.php' => config_path('query_filters.php'),
         ], 'query_filters_config');
 
-        $this->mergeConfigFrom(
-            __DIR__.'/query_filters.php', 'query_filters'
-        );
+        $this->mergeConfigFrom(__DIR__.'/query_filters.php', 'query_filters');
 
         if ($this->app->runningInConsole()) {
             $this->commands(MakeQueryFiltersCommand::class);
