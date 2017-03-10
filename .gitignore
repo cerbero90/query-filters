@@ -1,4 +1,7 @@
 build
 composer.lock
+composer.phar
 docs
 vendor
+.idea/
+.DS_Store/
