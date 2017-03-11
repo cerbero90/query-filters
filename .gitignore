@@ -1,7 +1,5 @@
-build
+vendor/
+.DS_Store/
+.idea/
 composer.lock
 composer.phar
-docs
-vendor
-.idea/
-.DS_Store/
