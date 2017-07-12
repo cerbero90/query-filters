@@ -101,7 +101,7 @@ Now you can filter your actors by calling the method `filterBy()` and passing an
 For example, in your controller:
 
 ``` php
-use App\Actor;
+use App\QueryFilters\ActorFilters;
 
 ...
 
@@ -114,7 +114,7 @@ public function index(ActorFilters $filters)
 Alternatively you can hydrate an instance of `QueryFilters` from an array of query parameters, like:
 
 ``` php
-use App\Actor;
+use App\QueryFilters\ActorFilters;
 use Illuminate\Http\Request;
 
 ...
