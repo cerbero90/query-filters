@@ -101,7 +101,7 @@ Now you can filter your actors by calling the method `filterBy()` and passing an
 For example, in your controller:
 
 ``` php
-use App\Actor;
+use App\QueryFilters\ActorFilters;
 
 ...
 
