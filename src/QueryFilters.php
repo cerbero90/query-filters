@@ -27,6 +27,13 @@ abstract class QueryFilters
     protected $query;
 
     /**
+     * List of filters not requiring a value.
+     *
+     * @var array
+     */
+    protected $implicitFilters = [];
+
+    /**
      * Set the dependencies.
      *
      * @param    Request    $request
@@ -63,11 +70,26 @@ abstract class QueryFilters
         foreach ($this->request->all() as $filter => $value) {
             $method = Str::camel($filter);
 
-            if (method_exists($this, $method)) {
+            if ($this->filterCanBeApplied($method, $value)) {
                 call_user_func([$this, $method], $value);
             }
         }
 
         return $query;
+    }
+
+    /**
+     * Determine whether the given filter can be applied with the provided value.
+     *
+     * @param string $filter
+     * @param mixed $value
+     * @return boolean
+     */
+    protected function filterCanBeApplied($filter, $value)
+    {
+        $filterExists = method_exists($this, $filter);
+        $valueIsLegit = $value !== '' || in_array($filter, $this->implicitFilters);
+
+        return $filterExists && $valueIsLegit;
     }
 }

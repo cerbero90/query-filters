@@ -62,6 +62,10 @@ use Cerbero\QueryFilters\QueryFilters;
 
 class ActorFilters extends QueryFilters
 {
+    protected implicitFilters = [
+        'wonOscar',
+    ];
+
     public function wonOscar()
     {
         $this->query->where('oscars', '>', 0);
@@ -84,6 +88,10 @@ class ActorFilters extends QueryFilters
 All parameters in the query string have the related method in the newly created class.
 Please note that parameters having dashes or underscores are converted into their respective camel case form.
 
+By default filters are not applied whether their value is an empty string.
+If you wish to have implicit filters (e.g. `wonOscar()`) you can list them in the property `$implicitFilters`
+and they will be applied just like the others when the related query parameter is present in the request.
+
 You can use the property `$query` to interact with the Laravel Query Builder and determine how filters work.
 Thereafter let your Eloquent model (e.g. Actor) use the `FiltersRecords` trait:
 
@@ -102,6 +110,7 @@ For example, in your controller:
 
 ``` php
 use App\Actor;
+use App\QueryFilters\ActorFilters;
 
 ...
 
@@ -115,6 +124,7 @@ Alternatively you can hydrate an instance of `QueryFilters` from an array of que
 
 ``` php
 use App\Actor;
+use App\QueryFilters\ActorFilters;
 use Illuminate\Http\Request;
 
 ...

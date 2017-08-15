@@ -28,3 +28,10 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ### Removed
 - Support for PHP 5.5.
+
+
+## 1.3.0 - 2017-08-15
+
+### Added
+- Skip implicit filters by default.
+- Register implicit filters not to be skipped.

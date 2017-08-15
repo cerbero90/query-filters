@@ -18,6 +18,15 @@ class TestFilters extends QueryFilters
     public $filters = [];
 
     /**
+     * List of filters not requiring a value.
+     *
+     * @var array
+     */
+    protected $implicitFilters = [
+        'implicit',
+    ];
+
+    /**
      * Dummy filter requiring a value.
      *
      * @author    Andrea Marco Sartori
@@ -30,10 +39,10 @@ class TestFilters extends QueryFilters
     }
 
     /**
-     * Dummy filter requiring a falsy value.
+     * Dummy filter requiring a value.
      *
      * @author    Andrea Marco Sartori
-     * @param    integer    $value
+     * @param    mixed    $value
      * @return    void
      */
     public function bar($value)
@@ -42,7 +51,7 @@ class TestFilters extends QueryFilters
     }
 
     /**
-     * Dummy filter requiring no values.
+     * Dummy filter never called.
      *
      * @author    Andrea Marco Sartori
      * @return    void
@@ -56,10 +65,22 @@ class TestFilters extends QueryFilters
      * Dummy filter to test query strings with dashes and underscores.
      *
      * @author    Andrea Marco Sartori
+     * @param    mixed    $value
      * @return    void
      */
-    public function fooBarBaz()
+    public function fooBarBaz($value)
     {
-        $this->filters['foo-bar_baz'] = '';
+        $this->filters['foo-bar_baz'] = $value;
+    }
+
+    /**
+     * Dummy filter requiring no values.
+     *
+     * @author    Andrea Marco Sartori
+     * @return    void
+     */
+    public function implicit()
+    {
+        $this->filters['implicit'] = '';
     }
 }
