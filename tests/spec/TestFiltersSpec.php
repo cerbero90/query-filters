@@ -39,6 +39,7 @@ class TestFiltersSpec extends ObjectBehavior
             'bar'         => '0',
             'baz'         => '',
             'foo-bar_baz' => 'null',
+            'test'        => null,
         ];
 
         $appliedFilters = [
