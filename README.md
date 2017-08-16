@@ -62,7 +62,7 @@ use Cerbero\QueryFilters\QueryFilters;
 
 class ActorFilters extends QueryFilters
 {
-    protected implicitFilters = [
+    protected $implicitFilters = [
         'wonOscar',
     ];
 
