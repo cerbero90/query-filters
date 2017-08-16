@@ -35,3 +35,9 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ### Added
 - Skip implicit filters by default.
 - Register implicit filters not to be skipped.
+
+
+## 1.3.1 - 2017-08-16
+
+### Fixed
+- Filters are considered implicit also if they have null values.
