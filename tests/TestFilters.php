@@ -74,6 +74,17 @@ class TestFilters extends QueryFilters
     }
 
     /**
+     * Dummy filter never called.
+     *
+     * @author    Andrea Marco Sartori
+     * @return    void
+     */
+    public function test()
+    {
+        $this->filters['test'] = null;
+    }
+
+    /**
      * Dummy filter requiring no values.
      *
      * @author    Andrea Marco Sartori

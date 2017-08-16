@@ -88,7 +88,8 @@ abstract class QueryFilters
     protected function filterCanBeApplied($filter, $value)
     {
         $filterExists = method_exists($this, $filter);
-        $valueIsLegit = $value !== '' || in_array($filter, $this->implicitFilters);
+        $hasValue = $value !== '' && $value !== null;
+        $valueIsLegit = $hasValue || in_array($filter, $this->implicitFilters);
 
         return $filterExists && $valueIsLegit;
     }
