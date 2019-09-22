@@ -10,3 +10,4 @@
 /.scrutinizer.yml   export-ignore
 /tests              export-ignore
 /src/.gitkeep       export-ignore
+/phpunit.xml.dist   export-ignore
