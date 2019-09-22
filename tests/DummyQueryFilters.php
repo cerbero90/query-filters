@@ -12,7 +12,7 @@ class DummyQueryFilters extends QueryFilters
 {
     /**
      * Filter records based on the query parameter "won_oscar"
-     * 
+     *
      * @return void
      */
     public function wonOscar()
@@ -22,7 +22,7 @@ class DummyQueryFilters extends QueryFilters
 
     /**
      * Filter records based on the query parameter "acting"
-     * 
+     *
      * @param mixed $bool
      * @return void
      */
@@ -33,7 +33,7 @@ class DummyQueryFilters extends QueryFilters
 
     /**
      * Filter records based on the query parameter "acted-in"
-     * 
+     *
      * @param mixed $year
      * @return void
      */
