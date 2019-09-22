@@ -1,14 +1,14 @@
 {
     "name": "cerbero/query-filters",
     "type": "library",
-    "description": "Laravel package to filter data based on the query string.",
+    "description": "Filter Laravel Eloquent models based on query parameters.",
     "keywords": [
         "cerbero",
         "query-filters",
         "laravel",
         "query",
         "filters",
-        "query string"
+        "eloquent"
     ],
     "homepage": "https://github.com/cerbero90/query-filters",
     "license": "MIT",
@@ -21,17 +21,17 @@
         }
     ],
     "require": {
-        "php" : "~5.6|~7.0",
-        "illuminate/http": "^5.3",
-        "illuminate/database": "^5.3",
-        "illuminate/console": "^5.3",
-        "illuminate/support": "^5.3"
+        "php": "^5.6|^7.0",
+        "illuminate/http": "^5.3|^6.0",
+        "illuminate/database": "^5.3|^6.0",
+        "illuminate/console": "^5.3|^6.0",
+        "illuminate/support": "^5.3|^6.0"
     },
     "require-dev": {
-        "phpspec/phpspec" : "^2.5",
-        "henrikbjorn/phpspec-code-coverage" : "^2.0",
-        "scrutinizer/ocular": "^1.1",
-        "squizlabs/php_codesniffer": "^2.3"
+        "orchestra/testbench": "^3.3|^4.0",
+        "phpunit/phpunit": "^5.4|^6.0|^7.0|^8.0",
+        "squizlabs/php_codesniffer": "^3.0",
+        "mockery/mockery": "^1.2"
     },
     "autoload": {
         "psr-4": {
@@ -44,11 +44,16 @@
         }
     },
     "scripts": {
-        "test": "phpspec run -vvv"
+        "test": "phpunit"
     },
     "extra": {
         "branch-alias": {
             "dev-master": "1.0-dev"
+        },
+        "laravel": {
+            "providers": [
+                "Cerbero\\QueryFilters\\Providers\\QueryFiltersServiceProvider"
+            ]
         }
     }
 }
