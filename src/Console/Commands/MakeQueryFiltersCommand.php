@@ -84,7 +84,7 @@ class MakeQueryFiltersCommand extends GeneratorCommand
      * @param string $stub
      * @return string
      */
-    protected function replaceFilters(string $stub)
+    protected function replaceFilters($stub)
     {
         parse_str($this->argument('filters'), $rawFilters);
 
