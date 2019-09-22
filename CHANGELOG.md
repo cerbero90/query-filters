@@ -4,30 +4,22 @@ All Notable changes to `query-filters` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
-## 1.0.0 - 2016-04-26
+## 1.4.0 - 2019-09-22
 
 ### Added
-- Abstract class to extend for implementing query filters.
-- Trait to let Eloquent models use in order to filter their records.
-
-
-## 1.1.0 - 2016-07-25
-
-### Added
-- Static method to hydrate the filters from plain array.
-
-
-## 1.2.0 - 2016-11-19
-
-### Added
-- Artisan command to generate query filters.
-- Configuration file to set the path of generated query filters.
-
-
-## 1.2.1 - 2016-11-19
+- The Artisan console command can generate classes populated with filters.
+- Automatic determination of implicit filters
+- Support for Laravel 6.
+- Method to retrieve the request that query filters are based on.
 
 ### Removed
-- Support for PHP 5.5.
+- Need to list implicit filters.
+
+
+## 1.3.1 - 2017-08-16
+
+### Fixed
+- Filters are considered implicit also if they have null values.
 
 
 ## 1.3.0 - 2017-08-15
@@ -37,7 +29,26 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 - Register implicit filters not to be skipped.
 
 
-## 1.3.1 - 2017-08-16
+## 1.2.1 - 2016-11-19
 
-### Fixed
-- Filters are considered implicit also if they have null values.
+### Removed
+- Support for PHP 5.5.
+
+
+## 1.2.0 - 2016-11-19
+
+### Added
+- Artisan command to generate query filters.
+- Configuration file to set the path of generated query filters.
+
+## 1.1.0 - 2016-07-25
+
+### Added
+- Static method to hydrate the filters from plain array.
+
+
+## 1.0.0 - 2016-04-26
+
+### Added
+- Abstract class to extend for implementing query filters.
+- Trait to let Eloquent models use in order to filter their records.
