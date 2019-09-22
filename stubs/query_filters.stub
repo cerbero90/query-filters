@@ -4,7 +4,9 @@ namespace DummyNamespace;
 
 use Cerbero\QueryFilters\QueryFilters;
 
+/**
+ * Filter records based on query parameters.
+ *
+ */
 class DummyClass extends QueryFilters
-{
-    //
-}
+{DummyFilters}

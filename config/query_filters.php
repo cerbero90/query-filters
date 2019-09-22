@@ -6,7 +6,7 @@ return [
     | Query Filters Path
     |--------------------------------------------------------------------------
     |
-    | Directory to store the query filters in. By default is app/QueryFilters.
+    | Directory to generate query filters in. Default is app/QueryFilters.
     */
     'path' => 'QueryFilters',
 ];

@@ -1,0 +1,10 @@
+
+    /**
+     * Filter records based on the query parameter "dummyQueryParameter"
+     * 
+     * dummyParameterDoc@return void
+     */
+    public function dummyFilter(dummyParameter)
+    {
+        // $this->query
+    }

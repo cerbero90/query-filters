@@ -1,0 +1,44 @@
+<?php
+
+namespace App\QueryFilters;
+
+use Cerbero\QueryFilters\QueryFilters;
+
+/**
+ * Filter records based on query parameters.
+ *
+ */
+class Bar extends QueryFilters
+{
+    /**
+     * Filter records based on the query parameter "won_oscar"
+     * 
+     * @return void
+     */
+    public function wonOscar()
+    {
+        // $this->query
+    }
+
+    /**
+     * Filter records based on the query parameter "acting"
+     * 
+     * @param mixed $0
+     * @return void
+     */
+    public function acting($0)
+    {
+        // $this->query
+    }
+
+    /**
+     * Filter records based on the query parameter "acted-in"
+     * 
+     * @param mixed $2000
+     * @return void
+     */
+    public function actedIn($2000)
+    {
+        // $this->query
+    }
+}

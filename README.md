@@ -8,36 +8,29 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![StyleCI][ico-styleci]][link-styleci]
 [![Total Downloads][ico-downloads]][link-downloads]
-[![Gratipay][ico-gratipay]][link-gratipay]
 
 [![SensioLabsInsight][ico-sensiolabs]][link-sensiolabs]
 
-Query Filters has been fully inspired by this
-[lesson on Laracasts](https://laracasts.com/series/eloquent-techniques/episodes/4).
-This package provides an elegant and dynamic way to filter database records based on the request query string.
+Query Filters was fully inspired by [this lesson on Laracasts](https://laracasts.com/series/eloquent-techniques/episodes/4), it provides a simple way to filter Eloquent models based on query parameters of an HTTP request.
 
 ## Install
 
-From the root of your project run the following command in the terminal:
+Via Composer:
 
 ``` bash
 composer require cerbero/query-filters
 ```
 
-Optionally you can register the service provider included in the package to create query filters via the
-Artisan command `make:query-filters FiltersName`. In order to do that, add the following line to the list
-of your providers in `config/app.php`:
+If your version of Laravel is prior to 5.5, you can register this package service provider by adding the following line to the list of providers in `config/app.php`:
 
 ``` php
 'providers' => [
     ...
     Cerbero\QueryFilters\QueryFiltersServiceProvider::class,
-    ...
 ]
 ```
 
-By default the newly created query filters are placed in `app/QueryFilters`, if you prefer a different
-path you can set it in the `config/query_filters.php` file that you can create by running:
+This package includes a generator for query filter classes that by default are generated in `app/QueryFilters`. If you prefer a different path, you can set it in the `config/query_filters.php` file after running:
 
 ``` bash
 php artisan vendor:publish --tag=query_filters_config
@@ -45,55 +38,91 @@ php artisan vendor:publish --tag=query_filters_config
 
 ## Usage
 
-Imagine having a route to index all the actors stored in our database.
-This route accepts a query string to filter the data to display. For instance:
+Imagine to have a route for indexing all actors stored in the database. This route accepts query parameters to filter records, for example:
 
 ```
 /actors?won_oscar&acting=0&acted-in=2000
 ```
 
-will display only actors who won at least one Oscar, are no longer acting but acted in 2000.
+In this case the route will need to display only actors who won at least one Oscar, are no longer acting but acted in 2000.
 
-By using this package you can easily create filters based on the requested query string by just extending
-the `QueryFilters` class:
+This can be achieved by generating a query filters class and optionally defining the allowed query parameters and related variable names via the following Artisan command:
+
+``` bash
+php artisan make:query-filters ActorFilters 'won_oscar&acting=bool&acted-in=year'
+```
+
+That command will generate and populate with filters the `ActorFilters` class:
 
 ``` php
 use Cerbero\QueryFilters\QueryFilters;
 
+/**
+ * Filter records based on query parameters.
+ *
+ */
 class ActorFilters extends QueryFilters
 {
-    protected $implicitFilters = [
-        'wonOscar',
-    ];
-
+    /**
+     * Filter records based on the query parameter "won_oscar"
+     * 
+     * @return void
+     */
     public function wonOscar()
     {
-        $this->query->where('oscars', '>', 0);
+        // $this->query
     }
 
-    public function acting($boolean)
+    /**
+     * Filter records based on the query parameter "acting"
+     * 
+     * @param mixed $bool
+     * @return void
+     */
+    public function acting($bool)
     {
-        $this->query->whereActing($boolean);
+        // $this->query
     }
 
+    /**
+     * Filter records based on the query parameter "acted-in"
+     * 
+     * @param mixed $year
+     * @return void
+     */
     public function actedIn($year)
     {
-        $this->query->whereHas('movies', function ($movies) use ($year) {
-            $movies->whereYear('release_date', '=', $year);
-        });
+        // $this->query
     }
 }
 ```
 
-All parameters in the query string have the related method in the newly created class.
-Please note that parameters having dashes or underscores are converted into their respective camel case form.
+Please note how filter names are the equivalent camel case form of their related query parameters.
 
-By default filters are not applied whether their value is an empty string.
-If you wish to have implicit filters (e.g. `wonOscar()`) you can list them in the property `$implicitFilters`
-and they will be applied just like the others when the related query parameter is present in the request.
+Filters are only applied if their query parameter is present in the HTTP request with a non-empty value, unless they need no value to function (e.g. `won_oscar`).
 
-You can use the property `$query` to interact with the Laravel Query Builder and determine how filters work.
-Thereafter let your Eloquent model (e.g. Actor) use the `FiltersRecords` trait:
+The `$query` property lets filters determine how queries change when they are applied:
+
+``` php
+public function wonOscar()
+{
+    $this->query->where('oscars', '>', 0);
+}
+
+public function acting($bool)
+{
+    $this->query->where('acting', $bool);
+}
+
+public function actedIn($year)
+{
+    $this->query->whereHas('movies', function ($movies) use ($year) {
+        $movies->whereYear('release_date', '=', $year);
+    });
+}
+```
+
+After filters are defined, Eloquent models can apply them by using the `FiltersRecords` trait:
 
 ``` php
 use Cerbero\QueryFilters\FiltersRecords;
@@ -105,8 +134,7 @@ class Actor extends Model
 }
 ```
 
-Now you can filter your actors by calling the method `filterBy()` and passing an instance of `ActorFilters`.
-For example, in your controller:
+Finally in your route you can filter actors by calling the method `filterBy()` of your model and passing the query filters:
 
 ``` php
 use App\Actor;
@@ -120,7 +148,7 @@ public function index(ActorFilters $filters)
 }
 ```
 
-Alternatively you can hydrate an instance of `QueryFilters` from an array of query parameters, like:
+Alternatively you can hydrate query filters from a plain array:
 
 ``` php
 use App\Actor;
@@ -175,7 +203,6 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/cerbero90/query-filters.svg?style=flat-square
 [ico-styleci]: https://styleci.io/repos/57024205/shield
 [ico-downloads]: https://img.shields.io/packagist/dt/cerbero/query-filters.svg?style=flat-square
-[ico-gratipay]: https://img.shields.io/gratipay/cerbero.svg?style=flat-square
 [ico-sensiolabs]: https://insight.sensiolabs.com/projects/fe5cb80b-d49f-46e6-b94b-79c6087b5c13/big.png
 
 [link-author]: https://twitter.com/cerbero90
@@ -185,6 +212,5 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-code-quality]: https://scrutinizer-ci.com/g/cerbero90/query-filters
 [link-styleci]: https://styleci.io/repos/57024205
 [link-downloads]: https://packagist.org/packages/cerbero/query-filters
-[link-gratipay]: https://gratipay.com/cerbero
 [link-sensiolabs]: https://insight.sensiolabs.com/projects/fe5cb80b-d49f-46e6-b94b-79c6087b5c13
 [link-contributors]: ../../contributors
