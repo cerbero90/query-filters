@@ -5,39 +5,32 @@ namespace Cerbero\QueryFilters;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use ReflectionMethod;
 
 /**
- * Abstract implementation of a query filters applier.
+ * Abstract implementation of a query filters class.
  *
  */
 abstract class QueryFilters
 {
     /**
-     * The current HTTP request.
+     * The HTTP request with query parameters.
      *
-     * @var Illuminate\Http\Request
+     * @var \Illuminate\Http\Request
      */
     protected $request;
 
     /**
-     * Eloquent query builder.
+     * The Eloquent query builder.
      *
-     * @var     Illuminate\Database\Eloquent\Builder
+     * @var \Illuminate\Database\Eloquent\Builder
      */
     protected $query;
 
     /**
-     * List of filters not requiring a value.
-     *
-     * @var array
-     */
-    protected $implicitFilters = [];
-
-    /**
      * Set the dependencies.
      *
-     * @param    Request    $request
-     * @return    void
+     * @param \Illuminate\Http\Request $request
      */
     public function __construct(Request $request)
     {
@@ -45,10 +38,20 @@ abstract class QueryFilters
     }
 
     /**
-     * Hydrate the filters from plain array.
+     * Retrieve the request that query filters are based on
      *
-     * @param    array    $queries
-     * @return    static
+     * @return \Illuminate\Http\Request
+     */
+    public function getRequest()
+    {
+        return $this->request;
+    }
+
+    /**
+     * Hydrate query filters from a plain array.
+     *
+     * @param array $queries
+     * @return static
      */
     public static function hydrate(array $queries)
     {
@@ -58,10 +61,10 @@ abstract class QueryFilters
     }
 
     /**
-     * Apply all the filters to the given query.
+     * Apply filters based on query parameters.
      *
-     * @param    Illuminate\Database\Eloquent\Builder    $query
-     * @return    Illuminate\Database\Eloquent\Builder
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function applyToQuery(Builder $query)
     {
@@ -87,10 +90,17 @@ abstract class QueryFilters
      */
     protected function filterCanBeApplied($filter, $value)
     {
-        $filterExists = method_exists($this, $filter);
-        $hasValue = $value !== '' && $value !== null;
-        $valueIsLegit = $hasValue || in_array($filter, $this->implicitFilters);
+        // do not apply query filters that haven't been implemented
+        if (!method_exists($this, $filter)) {
+            return false;
+        }
 
-        return $filterExists && $valueIsLegit;
+        // apply query filters with valid values
+        if ($value !== '' && $value !== null) {
+            return true;
+        }
+
+        // apply query filters that don't need values (implicit filters)
+        return (new ReflectionMethod($this, $filter))->getNumberOfParameters() === 0;
     }
 }
