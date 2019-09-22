@@ -2,20 +2,22 @@
 
 namespace Cerbero\QueryFilters;
 
+use Illuminate\Database\Eloquent\Builder;
+
 /**
- * Trait to let Eloquent models filter their records based on the request query string.
+ * Trait for Eloquent models to filter records based on query parameters.
  *
  */
 trait FiltersRecords
 {
     /**
-     * Query scope to filter records based on the query string.
+     * Filter records based on the given query filters
      *
-     * @param    Illuminate\Database\Eloquent\Builder    $query
-     * @param    Cerbero\QueryFilters\QueryFilters    $filters
-     * @return    Illuminate\Database\Eloquent\Builder
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param \Cerbero\QueryFilters\QueryFilters $filters
+     * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeFilterBy($query, QueryFilters $filters)
+    public function scopeFilterBy(Builder $query, QueryFilters $filters)
     {
         return $filters->applyToQuery($query);
     }
