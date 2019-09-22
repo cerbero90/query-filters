@@ -1,0 +1,14 @@
+<?php
+
+namespace App\Hello\World;
+
+use Cerbero\QueryFilters\QueryFilters;
+
+/**
+ * Filter records based on query parameters.
+ *
+ */
+class Baz extends QueryFilters
+{
+    //
+}
