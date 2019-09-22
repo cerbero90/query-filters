@@ -51,17 +51,15 @@ class MakeQueryFiltersCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        if (!$path = config('query_filters.path')) {
-            return $rootNamespace;
-        }
-
-        // Ensure the path always starts with "app/"
+        // get query filters path from configuration
+        $path = $this->laravel['config']['query_filters.path'];
+        // ensure the path always starts with "app/"
         $path = Str::start(ltrim($path, '/'), 'app/');
-        // Remove "app/" from the beginning of the path
+        // remove "app/" from the beginning of the path
         $path = preg_replace('#^app\/#', '', $path);
-        // Convert the path into namespace
+        // convert the path into namespace
         $namespace = implode('\\', array_map('ucfirst', explode('/', $path)));
-        // Prepend the root namespace
+        // prepend the root namespace
         return $rootNamespace . '\\' . $namespace;
     }
 
