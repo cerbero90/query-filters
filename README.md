@@ -195,14 +195,14 @@ using the issue tracker.
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-[ico-author]: http://img.shields.io/badge/author-@cerbero90-blue.svg?style=flat-square
-[ico-version]: https://img.shields.io/packagist/v/cerbero/query-filters.svg?style=flat-square
-[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/cerbero90/query-filters/master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/cerbero90/query-filters.svg?style=flat-square
-[ico-code-quality]: https://img.shields.io/scrutinizer/g/cerbero90/query-filters.svg?style=flat-square
+[ico-author]: http://img.shields.io/badge/author-@cerbero90-blue.svg
+[ico-version]: https://img.shields.io/packagist/v/cerbero/query-filters.svg
+[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg
+[ico-travis]: https://img.shields.io/travis/cerbero90/query-filters/master.svg
+[ico-scrutinizer]: https://scrutinizer-ci.com/g/cerbero90/query-filters/badges/coverage.png
+[ico-code-quality]: https://scrutinizer-ci.com/g/cerbero90/query-filters/badges/quality-score.png
 [ico-styleci]: https://styleci.io/repos/57024205/shield
-[ico-downloads]: https://img.shields.io/packagist/dt/cerbero/query-filters.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/cerbero/query-filters.svg
 [ico-sensiolabs]: https://insight.sensiolabs.com/projects/fe5cb80b-d49f-46e6-b94b-79c6087b5c13/big.png
 
 [link-author]: https://twitter.com/cerbero90
