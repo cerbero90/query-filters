@@ -26,7 +26,7 @@ If your version of Laravel is prior to 5.5, you can register this package servic
 ``` php
 'providers' => [
     ...
-    Cerbero\QueryFilters\QueryFiltersServiceProvider::class,
+    Cerbero\QueryFilters\Providers\QueryFiltersServiceProvider::class,
 ]
 ```
 
