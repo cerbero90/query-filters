@@ -8,7 +8,7 @@ use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Mockery;
-use PHPUnit\Framework\TestCase;
+use Orchestra\Testbench\TestCase;
 
 /**
  * The dummy query filters test.
@@ -53,15 +53,17 @@ class DummyQueryFiltersTest extends TestCase
      * Retrieve the SQL statement after query filters are applied based on the given request
      *
      * @param \Illuminate\Http\Request $request
+     * @param string $filtersClass
      * @return string
      */
-    private function getSqlAfterApplyingFiltersFromRequest(Request $request)
+    private function getSqlAfterApplyingFiltersFromRequest(Request $request, $filtersClass = null)
     {
         $pdo = Mockery::mock('PDO');
         $queryBuilder = new QueryBuilder(new MySqlConnection($pdo));
         $eloquentBuilder = new EloquentBuilder($queryBuilder);
+        $filtersClass = $filtersClass ?: DummyQueryFilters::class;
 
-        (new DummyQueryFilters($request))->applyToQuery($eloquentBuilder);
+        (new $filtersClass($request))->applyToQuery($eloquentBuilder);
 
         return Str::replaceArray('?', $queryBuilder->getBindings(), $queryBuilder->toSql());
     }
@@ -97,6 +99,23 @@ class DummyQueryFiltersTest extends TestCase
 
         $expected = 'select * where `oscars` > 0';
         $actual = $this->getSqlAfterApplyingFiltersFromRequest($request);
+
+        $this->assertSame($expected, $actual);
+    }
+
+    /**
+     * @test
+     */
+    public function doesNotApplyFiltersWithInvalidValue()
+    {
+        $request = new Request([
+            'won_oscar' => null, // implicit filter (does not need a value), will be applied
+            'acting' => 'abc', // should be a boolean, won't be applied
+            'acted-in' => 2000, // the year is valid, will be applied
+        ]);
+
+        $expected = 'select * where `oscars` > 0 and year(`started_acting_at`) <= 2000 and year(`finished_acting_at`) >= 2000';
+        $actual = $this->getSqlAfterApplyingFiltersFromRequest($request, ValidatedDummyQueryFilters::class);
 
         $this->assertSame($expected, $actual);
     }

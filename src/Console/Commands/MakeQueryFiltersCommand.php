@@ -114,7 +114,7 @@ class MakeQueryFiltersCommand extends GeneratorCommand
     {
         return [
             ['name', InputArgument::REQUIRED, 'The name of the class'],
-            ['filters', InputArgument::OPTIONAL, 'The name of the filters e.g. won_oscar&acting=bool&acted-in=year'],
+            ['filters', InputArgument::OPTIONAL, "The name of the filters e.g. 'won_oscar&acting=bool&acted-in=year'"],
         ];
     }
 }
