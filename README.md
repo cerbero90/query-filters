@@ -165,6 +165,23 @@ public function index(Request $request)
 }
 ```
 
+Sometimes you may want to silently skip filters if their value is not valid. Instead of setting validation rules in HTTP requests, you may define them in the query filters class.
+
+This avoids a failed validation to stop the filtering process and applies only valid filters while ignoring filters with values that do not pass the validation:
+
+```php
+class ActorFilters extends QueryFilters
+{
+    protected function getRules()
+    {
+        return [
+            'acting' => 'bool',
+            'acted-in' => 'int|digits:4',
+        ];
+    }
+}
+```
+
 ## Change log
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
