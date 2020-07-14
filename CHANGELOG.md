@@ -4,6 +4,12 @@ All Notable changes to `query-filters` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 1.5.0 - 2020-07-14
+
+### Added
+- Values of filters can be validated: only filters that pass the validation are applied.
+
+
 ## 1.4.1 - 2020-03-04
 
 ### Added

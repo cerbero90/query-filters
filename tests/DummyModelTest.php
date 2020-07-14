@@ -2,7 +2,9 @@
 
 namespace Cerbero\QueryFilters;
 
+use Illuminate\Contracts\Validation\Validator as ValidatorContract;
 use Illuminate\Database\MySqlConnection;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Mockery;
 use PHPUnit\Framework\TestCase;
@@ -24,6 +26,20 @@ class DummyModelTest extends TestCase
             'acted-in' => '2000',
         ]);
 
+        $validator = Mockery::mock(ValidatorContract::class)
+            ->expects()
+            ->make(Mockery::type('array'), Mockery::type('array'))
+            ->twice()
+            ->andReturnSelf()
+            ->getMock()
+            ->expects()
+            ->fails()
+            ->twice()
+            ->andReturns(false)
+            ->getMock();
+
+        Validator::swap($validator);
+
         $pdo = Mockery::mock('PDO');
         $connection = new MySqlConnection($pdo);
 
@@ -39,5 +55,7 @@ class DummyModelTest extends TestCase
         $actual = Str::replaceArray('?', $queryBuilder->getBindings(), $queryBuilder->toSql());
 
         $this->assertSame($expected, $actual);
+
+        Mockery::close();
     }
 }

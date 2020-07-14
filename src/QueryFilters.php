@@ -4,6 +4,8 @@ namespace Cerbero\QueryFilters;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use ReflectionMethod;
 
@@ -71,10 +73,8 @@ abstract class QueryFilters
         $this->query = $query;
 
         foreach ($this->request->all() as $filter => $value) {
-            $method = Str::camel($filter);
-
-            if ($this->filterCanBeApplied($method, $value)) {
-                call_user_func([$this, $method], $value);
+            if ($this->filterCanBeApplied($filter, $value)) {
+                call_user_func([$this, Str::camel($filter)], $value);
             }
         }
 
@@ -90,17 +90,33 @@ abstract class QueryFilters
      */
     protected function filterCanBeApplied($filter, $value)
     {
+        $method = Str::camel($filter);
+
         // do not apply query filters that haven't been implemented
-        if (!method_exists($this, $filter)) {
+        if (!method_exists($this, $method)) {
             return false;
         }
 
         // apply query filters with valid values
         if ($value !== '' && $value !== null) {
-            return true;
+            $data = $this->request->only($filter);
+            $rules = Arr::only($this->getRules(), $filter);
+
+            return !Validator::make($data, $rules)->fails();
         }
 
         // apply query filters that don't need values (implicit filters)
-        return (new ReflectionMethod($this, $filter))->getNumberOfParameters() === 0;
+        return (new ReflectionMethod($this, $method))->getNumberOfParameters() === 0;
+    }
+
+    /**
+     * Retrieve the rules to validate filters value.
+     * If a filter validation fails, the filter is not applied.
+     *
+     * @return array
+     */
+    protected function getRules()
+    {
+        return [];
     }
 }
