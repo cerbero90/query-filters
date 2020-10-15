@@ -1,6 +1,8 @@
 # Query Filters
 
 [![Author][ico-author]][link-author]
+[![Required Laravel Version][ico-laravel]][link-packagist]
+[![Required PHP Version][ico-php]][link-packagist]
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
 [![Build Status][ico-travis]][link-travis]
@@ -213,6 +215,8 @@ using the issue tracker.
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
 [ico-author]: http://img.shields.io/badge/author-@cerbero90-blue.svg
+[ico-laravel]: https://img.shields.io/badge/Laravel-%E2%89%A5%205.4-ff2d20?logo=laravel
+[ico-php]: https://img.shields.io/packagist/php-v/cerbero/query-filters?color=%238892BF&logo=php
 [ico-version]: https://img.shields.io/packagist/v/cerbero/query-filters.svg
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg
 [ico-travis]: https://img.shields.io/travis/cerbero90/query-filters/master.svg
