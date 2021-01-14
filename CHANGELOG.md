@@ -4,6 +4,14 @@ All Notable changes to `query-filters` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 1.7.0 - 2021-01-14
+
+### Added
+- Support for PHP 8.
+
+### Changed
+- Migrated from Travis to GitHub actions.
+- Code style from PSR-2 to PSR-12.
 
 
 ## 1.6.0 - 2020-10-15
