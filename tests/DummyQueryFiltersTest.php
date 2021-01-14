@@ -43,7 +43,8 @@ class DummyQueryFiltersTest extends TestCase
             'acted-in' => '2000',
         ]);
 
-        $expected = 'select * where `oscars` > 0 and `acting` = 0 and year(`started_acting_at`) <= 2000 and year(`finished_acting_at`) >= 2000';
+        $expected = 'select * where `oscars` > 0 and `acting` = 0 and year(`started_acting_at`) <= 2000 ' .
+            'and year(`finished_acting_at`) >= 2000';
         $actual = $this->getSqlAfterApplyingFiltersFromRequest($request);
 
         $this->assertSame($expected, $actual);
@@ -80,7 +81,8 @@ class DummyQueryFiltersTest extends TestCase
             'filter_not_implemented' => 'foo', // this filter is not implemented, won't be applied
         ]);
 
-        $expected = 'select * where `oscars` > 0 and `acting` = 0 and year(`started_acting_at`) <= 2000 and year(`finished_acting_at`) >= 2000';
+        $expected = 'select * where `oscars` > 0 and `acting` = 0 and year(`started_acting_at`) <= 2000 ' .
+            'and year(`finished_acting_at`) >= 2000';
         $actual = $this->getSqlAfterApplyingFiltersFromRequest($request);
 
         $this->assertSame($expected, $actual);
@@ -114,7 +116,8 @@ class DummyQueryFiltersTest extends TestCase
             'acted-in' => 2000, // the year is valid, will be applied
         ]);
 
-        $expected = 'select * where `oscars` > 0 and year(`started_acting_at`) <= 2000 and year(`finished_acting_at`) >= 2000';
+        $expected = 'select * where `oscars` > 0 and year(`started_acting_at`) <= 2000 ' .
+            'and year(`finished_acting_at`) >= 2000';
         $actual = $this->getSqlAfterApplyingFiltersFromRequest($request, ValidatedDummyQueryFilters::class);
 
         $this->assertSame($expected, $actual);
