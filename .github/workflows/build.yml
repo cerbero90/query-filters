@@ -37,6 +37,11 @@ jobs:
                       php: 7.1
                     - laravel: 8.*
                       php: 7.2
+                    - php: 7.4
+                      dependency-version: prefer-lowest
+                    - php: 8.0
+                      dependency-version: prefer-lowest
+                      os: windows-latest
 
         name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
 
