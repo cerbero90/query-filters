@@ -41,6 +41,7 @@ jobs:
                       dependency-version: prefer-lowest
                     - php: 8.0
                       dependency-version: prefer-lowest
+                    - php: 8.0
                       os: windows-latest
 
         name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
