@@ -11,3 +11,4 @@
 /tests              export-ignore
 /src/.gitkeep       export-ignore
 /phpunit.xml.dist   export-ignore
+/.github            export-ignore
