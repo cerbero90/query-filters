@@ -51,7 +51,8 @@ class DummyModelTest extends TestCase
             ->getMock();
 
         $queryBuilder = $model->filterBy($queryFilters)->getQuery();
-        $expected = 'select * from `dummy_table` where `oscars` > 0 and `acting` = 0 and year(`started_acting_at`) <= 2000 and year(`finished_acting_at`) >= 2000';
+        $expected = 'select * from `dummy_table` where `oscars` > 0 and `acting` = 0 ' .
+            'and year(`started_acting_at`) <= 2000 and year(`finished_acting_at`) >= 2000';
         $actual = Str::replaceArray('?', $queryBuilder->getBindings(), $queryBuilder->toSql());
 
         $this->assertSame($expected, $actual);

@@ -1,14 +1,14 @@
 # Query Filters
 
 [![Author][ico-author]][link-author]
-[![Required Laravel Version][ico-laravel]][link-packagist]
-[![Required PHP Version][ico-php]][link-packagist]
-[![Latest Version on Packagist][ico-version]][link-packagist]
-[![Software License][ico-license]](LICENSE.md)
-[![Build Status][ico-travis]][link-travis]
+[![PHP Version][ico-php]][link-php]
+[![Laravel Version][ico-laravel]][link-laravel]
+[![Build Status][ico-actions]][link-actions]
 [![Coverage Status][ico-scrutinizer]][link-scrutinizer]
 [![Quality Score][ico-code-quality]][link-code-quality]
-[![StyleCI][ico-styleci]][link-styleci]
+[![Latest Version][ico-version]][link-packagist]
+[![Software License][ico-license]](LICENSE.md)
+[![PSR-12][ico-psr12]][link-psr12]
 [![Total Downloads][ico-downloads]][link-downloads]
 
 [![SensioLabsInsight][ico-sensiolabs]][link-sensiolabs]
@@ -214,24 +214,26 @@ using the issue tracker.
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-[ico-author]: http://img.shields.io/badge/author-@cerbero90-blue.svg
-[ico-laravel]: https://img.shields.io/badge/Laravel-%E2%89%A5%205.4-ff2d20?logo=laravel
-[ico-php]: https://img.shields.io/packagist/php-v/cerbero/query-filters?color=%238892BF&logo=php
-[ico-version]: https://img.shields.io/packagist/v/cerbero/query-filters.svg
-[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg
-[ico-travis]: https://img.shields.io/travis/cerbero90/query-filters/master.svg
-[ico-scrutinizer]: https://scrutinizer-ci.com/g/cerbero90/query-filters/badges/coverage.png
-[ico-code-quality]: https://scrutinizer-ci.com/g/cerbero90/query-filters/badges/quality-score.png
-[ico-styleci]: https://styleci.io/repos/57024205/shield
-[ico-downloads]: https://img.shields.io/packagist/dt/cerbero/query-filters.svg
+[ico-author]: https://img.shields.io/static/v1?label=author&message=cerbero90&color=50ABF1&logo=twitter&style=flat-square
+[ico-php]: https://img.shields.io/packagist/php-v/cerbero/query-filters?color=%234F5B93&logo=php&style=flat-square
+[ico-laravel]: https://img.shields.io/static/v1?label=laravel&message=%E2%89%A55.4&color=ff2d20&logo=laravel&style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/cerbero/query-filters.svg?label=version&style=flat-square
+[ico-actions]: https://img.shields.io/github/workflow/status/cerbero90/query-filters/build?style=flat-square&logo=github
+[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
+[ico-psr12]: https://img.shields.io/static/v1?label=compliance&message=PSR-12&color=blue&style=flat-square
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/cerbero90/query-filters.svg?style=flat-square&logo=scrutinizer
+[ico-code-quality]: https://img.shields.io/scrutinizer/g/cerbero90/query-filters.svg?style=flat-square&logo=scrutinizer
+[ico-downloads]: https://img.shields.io/packagist/dt/cerbero/query-filters.svg?style=flat-square
 [ico-sensiolabs]: https://insight.sensiolabs.com/projects/fe5cb80b-d49f-46e6-b94b-79c6087b5c13/big.png
 
 [link-author]: https://twitter.com/cerbero90
+[link-php]: https://www.php.net
+[link-laravel]: https://laravel.com
 [link-packagist]: https://packagist.org/packages/cerbero/query-filters
-[link-travis]: https://travis-ci.org/cerbero90/query-filters
+[link-actions]: https://github.com/cerbero90/query-filters/actions?query=workflow%3Abuild
+[link-psr12]: https://www.php-fig.org/psr/psr-12/
 [link-scrutinizer]: https://scrutinizer-ci.com/g/cerbero90/query-filters/code-structure
 [link-code-quality]: https://scrutinizer-ci.com/g/cerbero90/query-filters
-[link-styleci]: https://styleci.io/repos/57024205
 [link-downloads]: https://packagist.org/packages/cerbero/query-filters
 [link-sensiolabs]: https://insight.sensiolabs.com/projects/fe5cb80b-d49f-46e6-b94b-79c6087b5c13
 [link-contributors]: ../../contributors
