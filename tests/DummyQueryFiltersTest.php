@@ -64,7 +64,7 @@ class DummyQueryFiltersTest extends TestCase
         $eloquentBuilder = new EloquentBuilder($queryBuilder);
         $filtersClass = $filtersClass ?: DummyQueryFilters::class;
 
-        (new $filtersClass($request))->applyToQuery($eloquentBuilder);
+        (new $filtersClass())->setRequest($request)->applyToQuery($eloquentBuilder);
 
         return Str::replaceArray('?', $queryBuilder->getBindings(), $queryBuilder->toSql());
     }

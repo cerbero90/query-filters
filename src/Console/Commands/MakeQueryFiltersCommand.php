@@ -3,6 +3,7 @@
 namespace Cerbero\QueryFilters\Console\Commands;
 
 use Illuminate\Console\GeneratorCommand;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputArgument;
 
@@ -52,7 +53,7 @@ class MakeQueryFiltersCommand extends GeneratorCommand
     protected function getDefaultNamespace($rootNamespace)
     {
         // get query filters path from configuration
-        $path = $this->laravel['config']['query_filters.path'];
+        $path = Config::get('query_filters.path');
         // ensure the path always starts with "app/"
         $path = Str::start(ltrim($path, '/'), 'app/');
         // remove "app/" from the beginning of the path
