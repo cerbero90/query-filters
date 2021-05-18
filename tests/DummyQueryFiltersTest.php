@@ -64,7 +64,7 @@ class DummyQueryFiltersTest extends TestCase
         $eloquentBuilder = new EloquentBuilder($queryBuilder);
         $filtersClass = $filtersClass ?: DummyQueryFilters::class;
 
-        (new $filtersClass($request))->applyToQuery($eloquentBuilder);
+        (new $filtersClass())->setRequest($request)->applyToQuery($eloquentBuilder);
 
         return Str::replaceArray('?', $queryBuilder->getBindings(), $queryBuilder->toSql());
     }
@@ -121,5 +121,15 @@ class DummyQueryFiltersTest extends TestCase
         $actual = $this->getSqlAfterApplyingFiltersFromRequest($request, ValidatedDummyQueryFilters::class);
 
         $this->assertSame($expected, $actual);
+    }
+
+    /**
+     * @test
+     */
+    public function retrievesFreshRequestIfNoneIsSet()
+    {
+        $filters = new DummyQueryFilters();
+
+        $this->assertInstanceOf(Request::class, $filters->getRequest());
     }
 }

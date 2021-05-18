@@ -5,6 +5,7 @@ namespace Cerbero\QueryFilters;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Request as RequestFacade;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use ReflectionMethod;
@@ -32,11 +33,25 @@ abstract class QueryFilters
     /**
      * Set the dependencies.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request|null $request
      */
-    public function __construct(Request $request)
+    public function __construct(Request $request = null)
+    {
+        // do not inject requests to support Laravel Octane
+        // @todo: remove constructor in the next major release
+    }
+
+    /**
+     * Set the request that query filters are based on
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return self
+     */
+    public function setRequest(Request $request)
     {
         $this->request = $request;
+
+        return $this;
     }
 
     /**
@@ -46,6 +61,10 @@ abstract class QueryFilters
      */
     public function getRequest()
     {
+        if (!isset($this->request)) {
+            $this->request = RequestFacade::instance();
+        }
+
         return $this->request;
     }
 
@@ -59,7 +78,7 @@ abstract class QueryFilters
     {
         $request = new Request($queries);
 
-        return new static($request);
+        return (new static())->setRequest($request);
     }
 
     /**
@@ -72,7 +91,7 @@ abstract class QueryFilters
     {
         $this->query = $query;
 
-        foreach ($this->request->all() as $filter => $value) {
+        foreach ($this->getRequest()->all() as $filter => $value) {
             if ($this->filterCanBeApplied($filter, $value)) {
                 call_user_func([$this, Str::camel($filter)], $value);
             }
@@ -99,7 +118,7 @@ abstract class QueryFilters
 
         // apply query filters with valid values
         if ($value !== '' && $value !== null) {
-            $data = $this->request->only($filter);
+            $data = $this->getRequest()->only($filter);
             $rules = Arr::only($this->getRules(), $filter);
 
             return !Validator::make($data, $rules)->fails();
