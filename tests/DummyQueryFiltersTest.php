@@ -122,4 +122,14 @@ class DummyQueryFiltersTest extends TestCase
 
         $this->assertSame($expected, $actual);
     }
+
+    /**
+     * @test
+     */
+    public function retrievesFreshRequestIfNoneIsSet()
+    {
+        $filters = new DummyQueryFilters();
+
+        $this->assertInstanceOf(Request::class, $filters->getRequest());
+    }
 }
