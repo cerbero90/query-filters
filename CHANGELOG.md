@@ -4,6 +4,13 @@ All Notable changes to `query-filters` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+
+## 1.8.0 - 2021-05-18
+
+### Changed
+- Minor adjustments to support Laravel Octane.
+
+
 ## 1.7.0 - 2021-01-14
 
 ### Added
