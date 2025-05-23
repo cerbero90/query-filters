@@ -35,7 +35,7 @@ abstract class QueryFilters
      *
      * @param \Illuminate\Http\Request|null $request
      */
-    public function __construct(Request $request = null)
+    public function __construct(?Request $request = null)
     {
         // do not inject requests to support Laravel Octane
         // @todo: remove constructor in the next major release
