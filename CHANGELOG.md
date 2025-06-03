@@ -5,7 +5,7 @@ All Notable changes to `query-filters` will be documented in this file.
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
 
-## 1.8.1 - 2025-06-3
+## 1.8.1 - 2025-06-03
 
 ### Changed
 - Fix deprecated nullable mark.
